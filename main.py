@@ -5,9 +5,9 @@ import pandas as pd
 from datetime import datetime, timedelta
 import numpy as np
 import progressbar
-
-
-
+import json
+from openpyxl.workbook import Workbook
+import re
 def get_position_link(url):
     
     '''
@@ -57,23 +57,46 @@ def scrap_job_page(url):
     soup = BeautifulSoup(response.text, 'html.parser')
     body = soup.find('body')
     #     print(title)
-
+    #print(body)
     try:
         #         job title
-        dic['job_title'] = body.find('h2', class_='noMargTop margBotXs strong').text.strip()
-    except:
+          #body.find('script').text.strip()
+        script_text  = body.find('script').get_text()
+        relevant = script_text[script_text.index('=')+1:] 
+        #removes = and the part before it
+        relevante = relevant.rstrip(';')
+        data = json.loads(relevante) #a dictionary!
+        #print(data)
+        dic['job_title']=data['initialState']['jlData']['header']['jobTitleText']
+        
+        
+        
+        '''
+        for key in data.keys():
+          print(key)
+        '''
+        
+    except Exception as e:
         dic['job_title'] = np.nan
-
+        print(e)
+    #print(dic['job_title'])
     try:
         # company name
-        dic['company_name'] = body.find('span', class_='strong ib').text.strip()
+        script_text  = body.find('script').get_text()
+        relevant = script_text[script_text.index('=')+1:] 
+        relevante = relevant.rstrip(';')
+        data = json.loads(relevante) 
+        dic['company_name']=data['initialState']['jlData']['header']['employer']['name']
     except:
         dic['company_name'] = np.nan
 
     try:
-        # location
-        location = body.find('span', class_='subtle ib').text.strip().replace('–\xa0', '')
-        dic['location'] = location
+        
+        script_text  = body.find('script').get_text()
+        relevant = script_text[script_text.index('=')+1:] 
+        relevante = relevant.rstrip(';')
+        data = json.loads(relevante) 
+        dic['location']=data['initialState']['jlData']['header']['locationName']
     except:
         dic['location'] = np.nan
 
@@ -92,39 +115,19 @@ def scrap_job_page(url):
     except:
         dic['salary_max'] = np.nan
 
-    try:
-        # date
-        date = body.find('span', class_='minor nowrap').text.strip()
-        split = date.split(" ")
-        if "second" in split or "seconds" in split:
-            dic["date_posted"] = datetime.today().date()
-        if "minute" in split or "minutes" in split:
-            dic["date_posted"] = datetime.today().date()
-        if "hours" in split or "hour" in split:
-            dic["date_posted"] = datetime.today().date()
-        if "week" in split or "weeks" in split:
-            dic["date_posted"] = (datetime.today() - (timedelta(days=int(split[0]) * 7))).date()
-        if "days" in split or "day" in split:
-            dic["date_posted"] = (datetime.today() - timedelta(days=int(split[0]))).date()
-        if "month" in date or "months" in date:
-            dic["date_posted"] = (datetime.today() - (timedelta(days=int(split[0]) * 30))).date()
-    except:
-
-        dic["date_posted"] = datetime.today().date()
-
-    #     Job description
-    list_skills = []
-    job_des = body.find('div', class_='jobDesc')
-
-    for i in job_des:
-        try:
-            for li in i.find_all("li"):
-                list_skills.append(li.text.strip())
-        except:
-            break
+    
+  
     try:
 
-        dic['job_description'] = list_skills
+        script_text  = body.find('script').get_text()
+        relevant = script_text[script_text.index('=')+1:] 
+        #removes = and the part before it
+        relevante = relevant.rstrip(';')
+        data = json.loads(relevante) #a dictionary!
+        #print(data)
+        dic['job_description']=data['initialState']['jlData']['job']['description']
+
+        
     except:
         dic['job_description'] = np.nan
 
@@ -137,7 +140,7 @@ if __name__ == '__main__':
     #you should then copy the link of the desired type of job (i.e, Software engineering) from glassdoor and past the link
     #into get_all_links() function.
     #30 is the number of pages. There are around 60 positions in every page.
-    links = get_all_links(10, 'https://www.glassdoor.com.br/Vaga/new-york-developer-vagas-SRCH_IL.0,8_IC1132348_KE9,18.htm')
+    links = get_all_links(1, 'https://www.glassdoor.com.br/Vaga/belo-horizonte-desenvolvedor-vagas-SRCH_IL.0,14_IC2514646_KO15,28.htm')
     flatten = [item for sublist in links for item in sublist]
     # The scraper may crawl duplicate links
     remove_duplicates = list(set(flatten))
@@ -157,7 +160,7 @@ if __name__ == '__main__':
     #Save the dictionary into a dataframe
     df_glass = pd.DataFrame.from_dict(list_result)
     #The program will create an Excel file named data_glassdoor in the same directory as this script 
-    writer = pd.ExcelWriter('data_glassdoor.xlsx', engine='openpyxl')
+    writer = pd.ExcelWriter('belohorizonte_vagas.xlsx', engine='openpyxl')
     #Writing data into the Excel file
     df_glass.to_excel(writer, index=False)
     df_glass.to_excel(writer, startrow=len(df_glass) + 2, index=False)
