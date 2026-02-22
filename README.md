@@ -43,3 +43,5 @@ poetry run glassdoorcrawler --pages 1
 
 - Regras do repositorio e ordem sugerida de backlog: `docs/manutencao-regras-e-backlog.md`
 - Registro de decisao do ruleset da branch `master`: `docs/decisao-ruleset-master.md`
+- Processo de release e checklist: `docs/release-process.md`
+- Historico de mudancas por versao: `CHANGELOG.md`

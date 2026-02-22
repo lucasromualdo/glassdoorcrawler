@@ -1,0 +1,24 @@
+changelog:
+  exclude:
+    labels:
+      - duplicate
+      - invalid
+      - question
+      - wontfix
+  categories:
+    - title: Correcoes
+      labels:
+        - bug
+    - title: Melhorias
+      labels:
+        - enhancement
+        - refactor
+    - title: Testes
+      labels:
+        - test
+    - title: Infraestrutura
+      labels:
+        - infra
+    - title: Documentacao
+      labels:
+        - documentation
