@@ -45,3 +45,4 @@ poetry run glassdoorcrawler --pages 1
 - Registro de decisao do ruleset da branch `master`: `docs/decisao-ruleset-master.md`
 - Processo de release e checklist: `docs/release-process.md`
 - Historico de mudancas por versao: `CHANGELOG.md`
+- Classificacao de impacto de release (`release:*`) registrada em issues/PRs para apoiar SemVer
