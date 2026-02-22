@@ -38,3 +38,8 @@ poetry run glassdoorcrawler --pages 1
 
 - O HTML do Glassdoor muda com frequencia; ajustes no parsing podem ser necessarios.
 - O crawler usa atraso entre requisicoes (`--delay`) para reduzir bloqueios.
+
+## Manutencao
+
+- Regras do repositorio e ordem sugerida de backlog: `docs/manutencao-regras-e-backlog.md`
+- Registro de decisao do ruleset da branch `master`: `docs/decisao-ruleset-master.md`
