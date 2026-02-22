@@ -9,10 +9,29 @@ DEFAULT_URL = (
 )
 
 
+def positive_int(value: str) -> int:
+    parsed = int(value)
+    if parsed < 1:
+        raise argparse.ArgumentTypeError("--pages must be greater than or equal to 1")
+    return parsed
+
+
+def non_negative_float(value: str) -> float:
+    parsed = float(value)
+    if parsed < 0:
+        raise argparse.ArgumentTypeError("--delay must be greater than or equal to 0")
+    return parsed
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Glassdoor job crawler")
     parser.add_argument("--base-url", default=DEFAULT_URL, help="Glassdoor search results URL")
-    parser.add_argument("--pages", type=int, default=1, help="Number of result pages to crawl")
+    parser.add_argument(
+        "--pages",
+        type=positive_int,
+        default=1,
+        help="Number of result pages to crawl (>= 1)",
+    )
     parser.add_argument(
         "--output",
         default="belohorizonte_vagas.xlsx",
@@ -20,9 +39,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--delay",
-        type=float,
+        type=non_negative_float,
         default=0.5,
-        help="Delay between requests in seconds",
+        help="Delay between requests in seconds (>= 0)",
     )
     parser.add_argument(
         "--log-level",
