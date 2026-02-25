@@ -28,6 +28,12 @@ poetry install
 python main.py --pages 1 --output belohorizonte_vagas.xlsx
 ```
 
+Se seu ambiente tiver proxies configurados (ex.: `HTTP_PROXY`) e voce quiser ignorar isso no teste local:
+
+```bash
+python main.py --pages 1 --no-proxy
+```
+
 Ou via `poetry`:
 
 ```bash
@@ -38,6 +44,7 @@ poetry run glassdoorcrawler --pages 1
 
 - O HTML do Glassdoor muda com frequencia; ajustes no parsing podem ser necessarios.
 - O crawler usa atraso entre requisicoes (`--delay`) para reduzir bloqueios.
+- Quando o Glassdoor retorna a pagina de seguranca do Cloudflare, o scraper tenta fallback automatico via `curl_cffi` (requer dependencias instaladas).
 
 ## Manutencao
 
