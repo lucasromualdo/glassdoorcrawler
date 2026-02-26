@@ -1,6 +1,6 @@
 # Manutencao: Ruleset e Proximos Passos
 
-Atualizado em: 2026-02-22
+Atualizado em: 2026-02-26
 
 ## Ruleset atual (branch padrao `master`)
 
@@ -27,13 +27,56 @@ Rever quando:
 - Comecar a receber contribuicoes externas
 - Precisar acelerar hotfix (avaliar bypass admin)
 
-## Status rapido do backlog (2026-02-22)
+## Status rapido do backlog (2026-02-26)
 
 - `#8` concluida (PR `#14`, issue fechada)
 - `#16` concluida (organizacao inicial de releases; PR `#15`, issue fechada)
-- `#1` em andamento (`In Progress`) com diagnostico registrado (`403 Forbidden` na coleta)
+- PR `#19` aberta (corrige validacao real, parser/HTML atual, paginacao e lock/deps)
+- `#1`, `#3` e `#4` vinculadas ao release `v0.1.0` (fechamento automatico via PR `#19`)
+
+## Convencao atual: backlog x releases
+
+### Milestones (versao/release)
+
+Usar milestones para representar versoes/releases, por exemplo:
+
+- `v0.1.0`
+- `v0.1.1`
+- `v0.2.0`
+
+Uso recomendado:
+
+- Vincular issues com impacto no release atual (ex.: `release:patch`, `release:minor`)
+- Vincular PRs que entregam itens daquele release
+- Fechar o milestone quando a versao for publicada
+
+### Labels de backlog (planejamento)
+
+Usar labels para agrupar frentes/ciclos de trabalho no backlog:
+
+- `backlog:ciclo-a`: ciclo funcional do crawler (execucao, parser, paginacao, testes/CI)
+- `backlog:ciclo-b`: ciclo de governanca/manutencao (docs, repo, automacoes)
+
+Motivo da separacao:
+
+- Evita usar milestone para dois objetivos diferentes ao mesmo tempo (planejamento e release)
+- Facilita visualizar o que entra na proxima versao vs. o que continua no backlog
+
+### Estado atual (aplicado em 2026-02-26)
+
+- Milestone de release ativo: `v0.1.0`
+- `#1`, `#3`, `#4` atribuídas a `v0.1.0`
+- PR `#19` atribuida a `v0.1.0`
+- `#2` e `#13` mantidas no backlog com label `backlog:ciclo-a` (sem milestone de versao)
+- `#5`, `#10`, `#11`, `#12` mantidas no backlog com label `backlog:ciclo-b` (sem milestone de versao)
+- Milestones antigos de ciclo (`Ciclo A...`, `Ciclo B...`) foram fechados e substituidos por labels
 
 ## Proximas issues (ordem sugerida)
+
+Observacao:
+
+- A ordem abaixo continua valendo como prioridade de backlog.
+- Atribuir milestone de versao apenas quando a issue entrar de fato no release.
 
 1. `#1` validar execucao real do crawler (1 pagina)
 2. `#4` adaptar parser ao HTML atual do Glassdoor
@@ -58,9 +101,13 @@ Referencia detalhada: `docs/release-process.md`
 
 ## Separacao pratica para releases (resumo)
 
-- Ciclo A (release funcional do crawler): `#1`, `#4`, `#3` + recomendados `#2`, `#13`
-- Ciclo B (governanca/manutencao): `#12`, `#11`, `#10`, `#5`
+- Ciclo A (label `backlog:ciclo-a`): `#1`, `#4`, `#3` + recomendados `#2`, `#13`
+- Ciclo B (label `backlog:ciclo-b`): `#12`, `#11`, `#10`, `#5`
 - Concluidas relevantes para historico de release: `#6`, `#8`, `#16`
+
+Exemplo de uso com milestone:
+
+- Release `v0.1.0`: `#1`, `#4`, `#3` (e PR que entrega esses itens)
 
 ## Ajustes de ruleset (depois que tiver CI)
 

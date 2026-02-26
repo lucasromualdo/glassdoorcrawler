@@ -49,6 +49,11 @@ def build_parser() -> argparse.ArgumentParser:
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Logging verbosity",
     )
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Ignore HTTP(S)_PROXY/ALL_PROXY environment variables",
+    )
     return parser
 
 
@@ -66,6 +71,7 @@ def main() -> None:
         num_pages=args.pages,
         output_path=args.output,
         delay_seconds=args.delay,
+        use_env_proxies=not args.no_proxy,
     )
 
 
