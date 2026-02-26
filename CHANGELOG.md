@@ -23,6 +23,23 @@ Enquanto o projeto estiver em `0.x`, mudancas podem acontecer com mais frequenci
 ### Removed
 - Placeholder para remocoes ainda nao lancadas.
 
+## [0.1.0] - 2026-02-26
+
+### Added
+- Opcao de CLI `--no-proxy` para ignorar proxies do ambiente na coleta.
+
+### Changed
+- Coleta passa a tentar fallback automatico via `curl_cffi` ao detectar bloqueio de seguranca do Cloudflare.
+- Paginacao de resultados para `--pages > 1` usa endpoint BFF do Glassdoor (`jobSearchResultsQuery`) com cursor extraido do payload Next.js.
+- `poetry.lock` regenerado e dependencia `curl_cffi` adicionada com marker de Python `>=3.10`.
+
+### Fixed
+- Parsing de links da busca atualizado para URLs `/job-listing/` do HTML atual.
+- Parsing de detalhes da vaga adiciona fallback via `JSON-LD` (`JobPosting`) quando `initialState` nao existe.
+
+### Removed
+- Nenhuma remocao nesta versao.
+
 ## Como usar
 
 - Registre mudancas em `Unreleased` durante o desenvolvimento.
