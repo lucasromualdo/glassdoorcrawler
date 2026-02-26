@@ -1,5 +1,5 @@
 beautifulsoup4
-curl_cffi
+curl_cffi; python_version >= "3.10"
 numpy
 openpyxl
 pandas
