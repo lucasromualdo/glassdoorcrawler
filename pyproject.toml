@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "glassdoorcrawler"
-version = "0.1.0"
+version = "0.1.1"
 description = "Crawler para coletar dados de vagas no Glassdoor"
 authors = ["Lucas Romualdo Fernandes"]
 readme = "README.md"
