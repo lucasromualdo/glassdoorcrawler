@@ -10,6 +10,7 @@ Enquanto o projeto estiver em `0.x`, mudancas podem acontecer com mais frequenci
 ### Added
 - Placeholder para novas funcionalidades ainda nao lancadas.
 - Opcao de CLI `--no-proxy` para ignorar proxies do ambiente na coleta.
+- Suite de testes automatizados para parsing e paginacao em `tests/test_scraper.py`.
 
 ### Changed
 - Placeholder para ajustes de comportamento ainda nao lancados.
