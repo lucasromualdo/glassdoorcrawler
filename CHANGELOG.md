@@ -11,6 +11,7 @@ Enquanto o projeto estiver em `0.x`, mudancas podem acontecer com mais frequenci
 - Placeholder para novas funcionalidades ainda nao lancadas.
 - Opcao de CLI `--no-proxy` para ignorar proxies do ambiente na coleta.
 - Suite de testes automatizados para parsing e paginacao em `tests/test_scraper.py`.
+- Workflow de CI no GitHub Actions (`.github/workflows/ci.yml`) com execucao em push/PR para `master`, checks basicos e `pytest`.
 
 ### Changed
 - Placeholder para ajustes de comportamento ainda nao lancados.
